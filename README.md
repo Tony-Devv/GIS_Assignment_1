@@ -40,13 +40,27 @@ The same layers are also available as a GeoPackage, **[`Assignment1_Egypt.gpkg`]
 
 ### Q1 — Geodatabase with a unified projection system (WGS1984)
 
-**[`Egypt.gdb`](Egypt.gdb)**
+**[`Egypt.gdb`](Egypt.gdb)** — all 11 layers, every one in **EPSG:32636 (WGS 84 / UTM zone 36N)**.
 
-| Layer | Features | Layer | Features |
-|---|---|---|---|
-| Gov | 27 | Roads | 192,352 |
-| Building | 149,756 | Shykha | 5,814 |
-| Landmark | 98,462 | | |
+| # | Layer | Features |
+|---|---|---|
+| 1 | Gov | 27 |
+| 2 | Building | 149,756 |
+| 3 | Roads | 192,352 |
+| 4 | Shykha | 5,814 |
+| 5 | Landmark | 98,462 |
+| 6 | El_Dokki | 1 |
+| 7 | All Banks in Egypt | 687 |
+| 8 | All_Banks_Bigger_Than_500 | 171 |
+| 9 | Do_Schools | 208 |
+| 10 | Do_school_point | 208 |
+| 11 | Assignment1_Egypt — All_Banks_In_El_Dokki | 48 |
+
+<sub>**Note on two layer names.** The ESRI File Geodatabase format cannot store spaces or
+dashes in a layer name. Where the GeoPackage name contains them, QGIS substitutes
+underscores on write — so in `Egypt.gdb` layer 7 appears as `All_Banks_in_Egypt` and
+layer 11 as `Assignment1_Egypt_—_All_Banks_In_El_Dokki`. The names are otherwise
+identical to those in the GeoPackage.</sub>
 
 ### Q2 — Area and location of El Dokki
 
@@ -66,13 +80,13 @@ The same layers are also available as a GeoPackage, **[`Assignment1_Egypt.gpkg`]
 
 ### Q5 — Banks in the Dokki area, with an area column
 
-Layer **`All_Banks_In_El_Dokki`** — 48 bank polygons, each carrying an `Area` column.
+Layer **`Assignment1_Egypt — All_Banks_In_El_Dokki`** — 48 bank polygons, each carrying an `Area` column.
 <sub>Extracted from `Landmark` by matching `A_NAME1` against the Arabic word for bank, then `Extract by location` against the El Dokki markaz polygon.</sub>
 
 ### Q7 — Hotels from the Landmark layer with area > 500 m²
 
-Layer **`All_Banks_Bigger_Than_500`** — 171 hotel polygons.
-<sub>Area computed with `$area` in EPSG:32636, then filtered to `A_NAME1` matching the Arabic word for hotel and area &gt; 500 m².</sub>
+Layer **`All_Banks_Bigger_Than_500`** — 171 polygons whose `A_NAME1` matches the Arabic word for hotel and whose computed area exceeds 500 m².
+<sub>Area was computed with `$area` in EPSG:32636, because the `Area` field stored in the source data is empty for all 98,462 features.</sub>
 
 ### Q8 — Map export, JPEG at 700 dpi
 
